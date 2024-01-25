@@ -11,11 +11,12 @@ class DBHelper {
   static const String pswdKey = 'Password';
   static const String isUserLoggedIn = 'isUserLoggedIn';
 
-    String? name;
-    String? email;
-    String? password;
+  String? name;
+  String? email;
+  String? password;
 
-  Future<void> registerUser({
+  Future<void> registerUser(
+    BuildContext context, {
     required String name,
     required String email,
     required String password,
@@ -28,6 +29,8 @@ class DBHelper {
       await preferences.setString(pswdKey, password);
       await preferences.setBool(isUserLoggedIn, true);
       log('User Registaer in Database:\nName: $name\nEmail: $email\nPassword: $password');
+      // ignore: use_build_context_synchronously
+      logIn(context, email: email, password: password);
     } catch (e) {
       log('$e');
     }
@@ -41,8 +44,6 @@ class DBHelper {
   }
 
   getData() async {
-    
-
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString(DBHelper.nameKey);
     email = prefs.getString(DBHelper.emailKey);

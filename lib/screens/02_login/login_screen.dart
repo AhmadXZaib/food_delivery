@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/db_helper/db_helper.dart';
-import 'package:food_delivery/screens/03_home_screen/home_screen.dart';
-
 import '../../core/utils/all_utils.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -235,20 +232,12 @@ class SignUpView extends StatelessWidget {
             ),
             InkWell(
               onTap: () async {
-                await DBHelper()
-                    .registerUser(
-                      name: nameCotroller.text,
-                      email: emailCotroller.text,
-                      password: pswCotroller.text,
-                    )
-                    .then(
-                      (value) => Navigator.pushReplacement(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => const HomeScreen(),
-                        ),
-                      ),
-                    );
+                await DBHelper().registerUser(
+                  context,
+                  name: nameCotroller.text,
+                  email: emailCotroller.text,
+                  password: pswCotroller.text,
+                );
               },
               child: Container(
                 // margin: EdgeInsets.only(left: 30.w, bottom: 36.h, right: 30.w),

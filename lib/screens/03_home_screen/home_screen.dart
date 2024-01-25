@@ -11,10 +11,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final dbHelper = DBHelper();
   @override
   void initState() {
     super.initState();
-    DBHelper().getData();
+    loadData();
+  }
+
+  loadData() async {
+    await dbHelper.getData();
+    setState(() {});
   }
 
   @override
@@ -24,12 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Name:${DBHelper().name}'),
-          Text('Email:${DBHelper().email}'),
-          Text('Password:${DBHelper().password}'),
+          Text('Name:${dbHelper.name}'),
+          Text('Email:${dbHelper.email}'),
+          Text('Password:${dbHelper.password}'),
           ElevatedButton(
             onPressed: () async {
-              await DBHelper().logOut(context);
+              // await dbHelper.logOut(context);
+
+              ClassName first = ClassName(data: 'data', name: ' name');
+              ClassName second = ClassName(data: 'data', name: ' name');
+
+              print(first == second);
             },
             child: const Text('logout'),
           ),
@@ -37,4 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+class ClassName {
+  String name;
+  String data;
+  ClassName({required this.data, required this.name});
 }
